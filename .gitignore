@@ -1,0 +1,23 @@
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Results and checkpoints
+result/
+*.pth
+*.mat
+
+# Environment and IDE
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
