@@ -15,14 +15,6 @@ This release follows the core setting in the paper:
 
 The paper reports that self-nomination can substantially reduce CSI feedback, with reductions up to about 65% while preserving sum-rate and fairness performance.
 
-## Example Figure
-
-The repository includes a paper-style example plot generated from the provided evaluation scripts:
-
-![UMi UPA num-users sweep example](result/save_fig/UMi_UPA_num_users_sweep_M30_K20_SNR15.png)
-
-This figure corresponds to a `num_users` sweep with `M=30`, `K=20`, and `SNR=15 dB`, comparing proposed self-nomination models against full-feedback and random-feedback baselines.
-
 ## Overview
 
 The pipeline implemented here is:
@@ -234,6 +226,12 @@ Results are saved under `./result/save_testresult/`.
 - `chg_input` is the reduced-information alternative based only on channel magnitude.
 - The `random` and `greedy` scheduling choices in [`selfnomination_project/main.py`](./main.py) are consistent with the training setup used in the paper.
 - The dynamic PF experiment path described in the paper is not included in this release.
+
+## Example Results
+
+The repository includes example evaluation outputs under [`result/save_fig/`](./result/save_fig), including the figure below from a `num_users` sweep with `M=30`, `K=20`, and `SNR=15 dB`.
+
+<img src="result/save_fig/UMi_UPA_num_users_sweep_M30_K20_SNR15.png" alt="UMi UPA num-users sweep example" width="384">
 
 ## Citation
 
