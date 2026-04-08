@@ -238,7 +238,7 @@ The repository includes example evaluation outputs under [`result/save_fig/`](./
 If you use this release in academic work, please cite the paper:
 
 ```bibtex
-@ARTICLE{11351314,
+@ARTICLE{Park26,
   author={Park, Juseong and Sohrabi, Foad and Du, Jinfeng and Andrews, Jeffrey G.},
   journal={IEEE Transactions on Wireless Communications}, 
   title={Self-Nomination: Deep Learning for Decentralized CSI Feedback Reduction in MU-MIMO Systems}, 
