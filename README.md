@@ -15,6 +15,14 @@ This release follows the core setting in the paper:
 
 The paper reports that self-nomination can substantially reduce CSI feedback, with reductions up to about 65% while preserving sum-rate and fairness performance.
 
+## Example Figure
+
+The repository includes a paper-style example plot generated from the provided evaluation scripts:
+
+![UMi UPA num-users sweep example](result/save_fig/UMi_UPA_num_users_sweep_M30_K20_SNR15.png)
+
+This figure corresponds to a `num_users` sweep with `M=30`, `K=20`, and `SNR=15 dB`, comparing proposed self-nomination models against full-feedback and random-feedback baselines.
+
 ## Overview
 
 The pipeline implemented here is:
@@ -77,6 +85,11 @@ selfnomination_project/
 ├── loaders.py
 ├── main.py
 ├── test_unified.py
+├── result/
+│   └── save_fig/
+│       ├── UMi_UPA_num_users_sweep_M30_K20_SNR15.png
+│       ├── num_users_sweep_raw/
+│       └── snr_sweep_raw/
 ├── baseline_methods/
 │   ├── __init__.py
 │   ├── sched_bf_modules.py

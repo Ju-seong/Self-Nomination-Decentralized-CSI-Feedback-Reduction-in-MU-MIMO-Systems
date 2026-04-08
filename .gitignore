@@ -5,9 +5,11 @@ __pycache__/
 *.so
 
 # Results and checkpoints
-result/
+# Generated outputs under result/ are intentionally tracked in this release.
 *.pth
 *.mat
+!result/
+!result/**
 
 # Environment and IDE
 .venv/
