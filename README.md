@@ -74,7 +74,7 @@ selfnomination_project/
 ├── requirements.txt
 ├── check_imports.py
 ├── config.py
-├── loaders.py
+├── dataset_loader.py
 ├── main.py
 ├── test_unified.py
 ├── result/
@@ -117,7 +117,7 @@ The loader supports the following channel modes:
 - `Berlin_UPA`
 - `RMa_UPA`
 
-For the 3GPP-style modes, dataset paths are resolved in [`selfnomination_project/loaders.py`](./loaders.py). The loader checks `DATASET_ROOT` first and otherwise falls back to the local default path configured in that file.
+For the 3GPP-style modes, dataset paths are resolved in [`selfnomination_project/dataset_loader.py`](./dataset_loader.py). The loader checks `DATASET_ROOT` first and otherwise looks for a nearby `datasets/` directory.
 
 Example:
 
@@ -125,7 +125,7 @@ Example:
 export DATASET_ROOT=/path/to/datasets
 ```
 
-The expected dataset subtree is the one referenced by [`selfnomination_project/loaders.py`](./loaders.py), including the `Data_Narrowband(CH+UEposition)_Nt32_Nr1/` folder used by the paper-aligned experiments.
+The expected dataset subtree is the one referenced by [`selfnomination_project/dataset_loader.py`](./dataset_loader.py), including the `Data_Narrowband(CH+UEposition)_Nt32_Nr1/` folder used by the paper-aligned experiments.
 
 ## Training
 

@@ -25,15 +25,15 @@ def main():
         errors.append(("config", e))
         print("config: FAIL", e)
 
-    # 2) Loaders (needs numpy; RF path needs no files)
+    # 2) Dataset loader (needs numpy; RF path needs no files)
     try:
-        from loaders import CommunicationDataset
+        from dataset_loader import CommunicationDataset
         d = CommunicationDataset("RF")
         assert d.num_samples > 0 and d.num_users == num_users
-        print("loaders (RF): ok")
+        print("dataset_loader (RF): ok")
     except Exception as e:
-        errors.append(("loaders", e))
-        print("loaders: FAIL", e)
+        errors.append(("dataset_loader", e))
+        print("dataset_loader: FAIL", e)
 
     # 3) Baseline methods
     try:

@@ -9,7 +9,7 @@ import torch
 from torch.utils.data import DataLoader, Subset
 from tqdm import tqdm
 
-from loaders import CommunicationDataset
+from dataset_loader import CommunicationDataset
 from config import *
 from learning_modules import get_module_class
 

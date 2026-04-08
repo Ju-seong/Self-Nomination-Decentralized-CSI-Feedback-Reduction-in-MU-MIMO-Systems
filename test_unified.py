@@ -5,7 +5,7 @@ import scipy.io as spio
 import argparse
 from tqdm import tqdm
 from torch.utils.data import DataLoader, Subset
-from loaders import CommunicationDataset
+from dataset_loader import CommunicationDataset
 from config import *
 from baseline_methods.sched_bf_modules import *
 
