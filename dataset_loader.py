@@ -38,6 +38,13 @@ def _resolve_dataset_root():
 
 
 DATASET_ROOT = _resolve_dataset_root()
+DATASET_SUBDIR = Path("Data_Narrowband(CH+UEposition)_Nt32_Nr1")
+DATASET_MODE_TOKENS = {
+    "UMi_UPA": ("umi", "upa"),
+    "UMi_ULA": ("umi", "ula"),
+    "Berlin_UPA": ("berlin", "upa"),
+    "RMa_UPA": ("rma",),
+}
 
 
 def _dataset_path(relative_path):
@@ -47,6 +54,32 @@ def _dataset_path(relative_path):
             "before running a non-RF experiment."
         )
     return DATASET_ROOT / relative_path
+
+
+def _find_dataset_file(channel_mode):
+    """Locate the dataset file for the requested channel mode without hardcoding filenames."""
+    dataset_dir = _dataset_path(DATASET_SUBDIR)
+    if not dataset_dir.is_dir():
+        raise FileNotFoundError(f"Dataset directory not found: {dataset_dir}")
+
+    tokens = DATASET_MODE_TOKENS[channel_mode]
+    candidates = sorted(path for path in dataset_dir.glob("*.mat") if path.is_file())
+    matches = []
+    for path in candidates:
+        path_name = path.name.lower()
+        if all(token in path_name for token in tokens):
+            matches.append(path)
+
+    if not matches:
+        raise FileNotFoundError(
+            f"No dataset file found for channel_mode={channel_mode} under {dataset_dir}. "
+            "Set DATASET_ROOT to the correct dataset location if needed."
+        )
+
+    if len(matches) > 1:
+        matches.sort(key=lambda path: path.stat().st_mtime, reverse=True)
+
+    return matches[0]
 
 
 class CommunicationDataset(Dataset):
@@ -63,34 +96,22 @@ class CommunicationDataset(Dataset):
                 + 1j * np.random.randn(num_total_samples, current_num_users, 1, Nt)
             )
         elif channel_mode == "UMi_UPA":
-            dataset_path = _dataset_path(
-                "Data_Narrowband(CH+UEposition)_Nt32_Nr1/"
-                "AUTO_DISCOVERED_UMI_UPA_DATASET.mat"
-            )
+            dataset_path = _find_dataset_file(channel_mode)
             dataset = spio.loadmat(dataset_path)
             H_tmp = dataset["H_set"]
             self._load_and_normalize(H_tmp)
         elif channel_mode == "UMi_ULA":
-            dataset_path = _dataset_path(
-                "Data_Narrowband(CH+UEposition)_Nt32_Nr1/"
-                "AUTO_DISCOVERED_UMI_ULA_DATASET.mat"
-            )
+            dataset_path = _find_dataset_file(channel_mode)
             dataset = spio.loadmat(dataset_path)
             H_tmp = dataset["H_set"]
             self._load_and_normalize(H_tmp)
         elif channel_mode == "Berlin_UPA":
-            dataset_path = _dataset_path(
-                "Data_Narrowband(CH+UEposition)_Nt32_Nr1/"
-                "AUTO_DISCOVERED_BERLIN_UPA_DATASET.mat"
-            )
+            dataset_path = _find_dataset_file(channel_mode)
             dataset = spio.loadmat(dataset_path)
             H_tmp = dataset["H_set"]
             self._load_and_normalize(H_tmp)
         elif channel_mode == "RMa_UPA":
-            dataset_path = _dataset_path(
-                "Data_Narrowband(CH+UEposition)_Nt32_Nr1/"
-                "AUTO_DISCOVERED_RMA_UPA_DATASET.mat"
-            )
+            dataset_path = _find_dataset_file(channel_mode)
             with h5py.File(dataset_path, "r") as f:
                 H_set_data = np.array(f["H_set"]).T
                 H_tmp = H_set_data["real"] + 1j * H_set_data["imag"]
